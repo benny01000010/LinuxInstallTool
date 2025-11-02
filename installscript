@@ -1,0 +1,45 @@
+# This file, when executed, will promt you to install the following helpful tools/application on your Linux system:
+#sudo, curl, ffmpeg, git, nmap, Ollama and Docker.
+
+#Please run this script as root. 
+
+#!/bin/bash
+
+AUTO_YES=false
+if [[ "$1" == "--yes" || "$1" == "-y" ]]; then
+    AUTO_YES=true
+fi
+
+ask_install() {
+    pkg_name=$1
+    install_cmd=$2
+
+    if $AUTO_YES; then
+        echo "Auto-installing all packages."
+        echo "Installing $pkg_name..."
+        eval "$install_cmd"
+    else
+        read -p "Install $pkg_name? (Y/n) " choice
+        choice=${choice:-Y}
+        if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+            echo "Installing $pkg_name..."
+            eval "$install_cmd"
+        else
+            echo "Skipping $pkg_name."
+        fi
+    fi
+}
+
+# Apt packages
+ask_install "sudo" "apt install sudo -y"
+ask_install "curl" "apt install curl -y"
+ask_install "ffmpeg" "apt install ffmpeg -y"
+ask_install "git" "apt install git -y"
+ask_install "nmap" "apt install nmap -y"
+
+# Docker
+ask_install "Docker" "curl -fsSL https://get.docker.com | sh"
+
+# Ollama
+ask_install "Ollama" "curl -fsSL https://ollama.com/install.sh | sh"
+
