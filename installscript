@@ -43,5 +43,6 @@ ask_install "nmap" "apt install nmap -y"
 ask_install "ufw" "apt install ufw -y"
 ask_install "wget" "apt-get install wget -y"
 ask_install "vim" "apt install vim -y"
+ask_isntall "nfs" "apt install nfs -y"
 
 echo -e "\e[32m All selected packages have been installed successfully. \e[0m"
